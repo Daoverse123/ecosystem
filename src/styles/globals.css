@@ -9,3 +9,44 @@
 .grad {
   background: linear-gradient(90deg, #5e1ed1 0%, #3065f3 100%);
 }
+
+/* animation */
+
+.spin-1 {
+  animation: spin 3s linear infinite 1s;
+}
+
+.spin-2 {
+  animation: spin 3s linear infinite 1.2s;
+}
+
+.spin-3 {
+  animation: spin 3s linear infinite 1.4s;
+}
+
+.spin-4 {
+  animation: spin 3s linear infinite 1.6s;
+}
+
+.appear {
+  animation: appear 0.3s ease-in-out forwards;
+}
+
+/* animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { playfair, inter } from ".";
 
-const Ring = () => {
+const Ring = ({ no }: { no: number }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +9,7 @@ const Ring = () => {
       height="105"
       fill="none"
       viewBox="0 0 105 105"
+      className={`spin-${no}`}
     >
       <g filter="url(#filter0_i_11353_33652)">
         <path
@@ -414,8 +415,8 @@ const Ring = () => {
 
 export const Sec4 = () => {
   return (
-    <section className="flex gap-[52px] justify-center py-[90px]">
-      <span>
+    <section className=" flex gap-[52px] justify-center py-[90px] max-[1200px]:py-[36px]  max-[1200px]:flex-col max-[1200px]:items-center">
+      <span className="max-[1200px]:flex max-[1200px]:flex-col max-[1200px]:items-center max-[1200px]:w-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="147"
@@ -494,7 +495,7 @@ export const Sec4 = () => {
         </svg>
         <h1
           className={
-            "mt-6 text-[48px] font-medium leading-[64px] " +
+            "mt-6 max-[1200px]:mt-3 text-[48px] font-medium leading-[64px] max-[1200px]:text-center max-[1200px]:text-[32px]" +
             ` ${playfair.className}`
           }
         >
@@ -502,7 +503,7 @@ export const Sec4 = () => {
         </h1>
         <p
           className={
-            "mt-[24px] max-w-[558px] text-[18px] text-[#6B6B7F] font-normal leading-[27px]" +
+            "mt-[24px] max-[1200px]:mt-3 max-w-[558px] text-[18px] text-[#6B6B7F] font-normal leading-[27px] max-[1200px]:text-[16px] max-[1200px]:max-w-[350px] max-[1200px]:text-center" +
             ` ${inter.className}`
           }
         >
@@ -513,12 +514,15 @@ export const Sec4 = () => {
       <div className="flex flex-col gap-[42px]">
         {[1, 2, 3, 4].map((ele, key) => {
           return (
-            <span key={"save" + ele} className="flex gap-[32px] items-center">
+            <span
+              key={"save" + ele}
+              className="flex gap-[32px] items-center max-[1200px]:scale-75"
+            >
               <span className="flex relative w-[105px] h-[105px]">
-                <Ring />
+                <Ring no={ele} />
                 <h1
                   className={
-                    "flex  text-[60px] text-[#5C657D] justify-center items-center w-full h-min mb-4 absolute left-0 right-0 top-0 bottom-0 m-auto" +
+                    "flex text-[60px] text-[#5C657D] justify-center items-center w-full h-min mb-4 absolute left-0 right-0 top-0 bottom-0 m-auto" +
                     ` ${playfair.className}`
                   }
                 >

@@ -3,8 +3,25 @@ import { playfair, inter } from ".";
 
 export const Sec6 = () => {
   return (
-    <section className="flex px-[120px] py-[78px] gap-[120px]">
-      <div className="flex flex-col border-t-[1px] border-[rgba(0, 0, 0, 0.20)]">
+    <section className="flex max-w-[1440px] mx-auto max-[1200px]:flex-col-reverse px-[120px] py-[78px] max-[1200px]:py-[49px] max-[1200px]:px-[29px] gap-[120px] max-[1200px]:gap-9">
+      <p className="max-[1200px]:flex hidden  items-center text-[#3065F3] gap-2 border-b-2 border-[#3065F3] w-max">
+        More FAQ{" "}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="14"
+          viewBox="0 0 15 14"
+          fill="none"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0 6.53216C0 6.28471 0.0982978 6.0474 0.273269 5.87243C0.44824 5.69746 0.685551 5.59916 0.932997 5.59916H11.7427L7.73641 1.59474C7.56122 1.41955 7.4628 1.18193 7.4628 0.934176C7.4628 0.686417 7.56122 0.448806 7.73641 0.273614C7.9116 0.098422 8.14921 0 8.39697 0C8.64473 0 8.88234 0.098422 9.05754 0.273614L14.6555 5.8716C14.7424 5.95826 14.8113 6.06122 14.8584 6.17457C14.9054 6.28792 14.9296 6.40944 14.9296 6.53216C14.9296 6.65488 14.9054 6.77639 14.8584 6.88974C14.8113 7.00309 14.7424 7.10605 14.6555 7.19272L9.05754 12.7907C8.88234 12.9659 8.64473 13.0643 8.39697 13.0643C8.14921 13.0643 7.9116 12.9659 7.73641 12.7907C7.56122 12.6155 7.4628 12.3779 7.4628 12.1301C7.4628 11.8824 7.56122 11.6448 7.73641 11.4696L11.7427 7.46516H0.932997C0.685551 7.46516 0.44824 7.36686 0.273269 7.19189C0.0982978 7.01692 0 6.7796 0 6.53216Z"
+            fill="#3065F3"
+          />
+        </svg>
+      </p>
+      <div className="flex flex-col  border-t-[1px] border-[rgba(0, 0, 0, 0.20)]">
         {[
           "How do i sign up for the project?",
           "What thing that i should prepare before starting?",
@@ -12,7 +29,7 @@ export const Sec6 = () => {
         ].map((faq, key) => {
           return (
             <span className="flex flex-col" key={"faq" + key}>
-              <span className="flex w-[616px] justify-between py-[32px] px-2 border-b-[1px] border-[rgba(0, 0, 0, 0.20)]">
+              <span className="flex w-[616px] max-[1200px]:w-full justify-between py-[32px] px-2 border-b-[1px] border-[rgba(0, 0, 0, 0.20)]">
                 <h1 className="text-[20px]">{faq}</h1>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,13 +61,14 @@ export const Sec6 = () => {
           );
         })}
       </div>
-      <div>
+      <div className="max-[1200px]:flex max-[1200px]:flex-col max-[1200px]:w-full">
         <h1
           className={
-            "text-[40px] font-medium leading-[64px] " + ` ${playfair.className}`
+            "text-[40px] max-[1200px]:text-[32px] max-[1200px]:leading-[52px] font-medium leading-[64px] " +
+            ` ${playfair.className}`
           }
         >
-          Benefits for Businesses
+          How we can help you?
         </h1>
         <p
           className={
@@ -73,7 +91,7 @@ export const Sec6 = () => {
             Connect
           </button>
         </span>
-        <p className="mt-[42px] flex items-center text-[#3065F3] gap-2 border-b-2 border-[#3065F3] w-max">
+        <p className="max-[1200px]:hidden mt-[42px] flex items-center text-[#3065F3] gap-2 border-b-2 border-[#3065F3] w-max">
           More FAQ{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"

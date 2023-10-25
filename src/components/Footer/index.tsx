@@ -2,8 +2,9 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="flex justify-between h-[110px] w-full  top-0 bg-[#FAFAFA] px-[120px] items-center">
+    <div className="flex max-[1200px]:flex-col max-[1200px]:items-start max-[1200px]:justify-start max-[1200px]:px-[29px] justify-between h-[110px] w-full  top-0 bg-[#FAFAFA] px-[120px] items-center">
       <svg
+        className="max-[1200px]:w-[108px]"
         width="172"
         height="46"
         viewBox="0 0 172 46"
@@ -29,20 +30,25 @@ function Footer() {
           fill="black"
         />
       </svg>
-      <ul className="flex gap-[40px]">
+      <ul className="flex gap-[40px] max-[1200px]:gap-[12px]">
         {["Get Listed", "Explore Offerings", "FAQs", "Visit Truts"].map(
           (ele) => {
-            return <li key={"nav" + ele}>{ele}</li>;
-          }
+            return (
+              <li className="max-[1200px]:text-[10px]" key={"nav" + ele}>
+                {ele}
+              </li>
+            );
+          },
         )}
       </ul>
-      <span className="flex items-center gap-[42px]">
+      <span className="flex items-center gap-[42px] max-[1200px]:gap-[20px]  max-[1200px]:mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
           height="25"
           fill="none"
           viewBox="0 0 25 25"
+          className="max-[1200px]:w-3"
         >
           <g clipPath="url(#clip0_11374_32648)">
             <path
@@ -66,6 +72,7 @@ function Footer() {
           height="19"
           fill="none"
           viewBox="0 0 25 19"
+          className="max-[1200px]:w-3"
         >
           <path
             fill="#121212"
@@ -78,6 +85,7 @@ function Footer() {
           height="25"
           fill="none"
           viewBox="0 0 25 25"
+          className="max-[1200px]:w-3"
         >
           <g clipPath="url(#clip0_11374_32650)">
             <path
