@@ -171,7 +171,7 @@ const WalletAuthTrigger = ({
 
       if (auth_res.status == 200) {
         // location.reload();
-        queryClient.invalidateQueries("auth");
+        queryClient.invalidateQueries(["auth"]);
         setwalletTrigger(0);
       }
     }
