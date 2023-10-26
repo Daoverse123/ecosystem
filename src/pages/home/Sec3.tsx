@@ -12,7 +12,7 @@ export const Sec3 = () => {
   const query = useQuery({
     queryKey: ["todos"],
     queryFn: async () => {
-      let res = await axios.get(`${process.env.API}/api/v1/offerings`);
+      let res = await axios.get(`${process.env.API}/offerings`);
       if (res.status == 200) {
         return res.data.data.result as offeringType[];
       }
@@ -32,7 +32,7 @@ export const Sec3 = () => {
         </h1>
         <p
           className={
-            "mt-[24px]  text-[18px] max-[1200px]:text-[16px] max-[1200px]:max-w-[600px] max-[425px]:w-[332px] text-[#6B6B7F] font-normal leading-[27px]" +
+            "mt-[24px]  text-[18px] max-[1200px]:text-[16px] max-[1200px]:max-w-[600px] max-[425px]:w-[100%] text-[#6B6B7F] font-normal leading-[27px]" +
             ` ${inter.className}`
           }
         >

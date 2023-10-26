@@ -79,15 +79,15 @@ export const Sec6 = () => {
           Follow our newsletter. We will regulary update our latest project and
           availability.
         </p>
-        <span className="flex gap-2 mt-[32px]">
+        <span className="flex gap-2 mt-[32px] max-[425px]:flex-col  max-[425px]:items-center">
           <input
-            className="p-0  px-[18px] m-0 w-[307px]  text-4  bg-[#FAFAFB] text-white rounded-[8px]"
+            className="p-0 h-12 px-[18px] m-0 w-[307px]  text-4  bg-[#FAFAFB] text-white rounded-[8px] max-[425px]:w-full"
             type="text"
             name=""
             id=""
             placeholder="Enter your Email"
           />
-          <button className=" text-[18px] px-[24px] py-[10px] bg-black text-white rounded-[8px]">
+          <button className=" text-[18px] px-[24px] py-[10px] bg-black text-white rounded-[8px] max-[425px]:w-full">
             Connect
           </button>
         </span>

@@ -20,7 +20,7 @@ function Discover() {
   const tags = useQuery({
     queryKey: ["todos-filter"],
     queryFn: async () => {
-      let res = await axios.get(`${process.env.API}/api/v1/offering/tags`);
+      let res = await axios.get(`${process.env.API}/offering/tags`);
       if (res.status == 200) {
         return res.data.data.result as tagType[];
       }
@@ -31,7 +31,7 @@ function Discover() {
     queryKey: ["api", selectedTags],
     queryFn: async () => {
       let res = await axios.get(
-        `${process.env.API}/api/v1/offerings?filter=${
+        `${process.env.API}/offerings?filter=${
           selectedTags.length > 0
             ? `{"tags":${JSON.stringify(selectedTags)}}`
             : "{}"

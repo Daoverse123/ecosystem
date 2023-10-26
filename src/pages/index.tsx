@@ -6,5 +6,9 @@ const inter = Inter({ subsets: ["latin"] });
 import Home from "./home";
 
 export default function Main() {
-  return <Home />;
+  return (
+    <>
+      <Home />
+    </>
+  );
 }

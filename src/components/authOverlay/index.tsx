@@ -17,7 +17,7 @@ async function handleCredentialResponse(response: any) {
   body = {
     token: response.credential,
   };
-  let res = await axios.post(`${process.env.P_API}/login/google`, body);
+  let res = await axios.post(`${process.env.API}/login/google`, body);
   if (res.status == 200) {
     let jwt = res.data.data.token;
     localStorage.setItem("token", `Bearer ${jwt}`);

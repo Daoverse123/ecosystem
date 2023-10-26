@@ -21,7 +21,7 @@ function Ecosystem({ id }: { id: string }) {
     queryKey: [id],
     queryFn: async (qn) => {
       let id = qn.queryKey[0];
-      let res = await axios.get(`${process.env.API}/api/v1/offering/${id}`);
+      let res = await axios.get(`${process.env.API}/offering/${id}`);
       if (res.status == 200) {
         return res.data.data.offering as offeringType;
       }
@@ -32,7 +32,7 @@ function Ecosystem({ id }: { id: string }) {
   const other = useQuery({
     queryKey: ["other"],
     queryFn: async () => {
-      let res = await axios.get(`${process.env.API}/api/v1/offerings`);
+      let res = await axios.get(`${process.env.API}/offerings`);
       if (res.status == 200) {
         return res.data.data.result as offeringType[];
       }

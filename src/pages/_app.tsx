@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import Script from "next/script";
+import Auth from "./../components/auth";
 
 import {
   useQuery,
@@ -15,10 +17,17 @@ import WalletProvider from "@/providers/AuthProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WalletProvider>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </WalletProvider>
+    <>
+      <Script
+        src="https://accounts.google.com/gsi/client"
+        strategy={"beforeInteractive"}
+      ></Script>
+      <WalletProvider>
+        <QueryClientProvider client={queryClient}>
+          {/* <Auth /> */}
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </WalletProvider>
+    </>
   );
 }

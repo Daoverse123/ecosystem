@@ -4,11 +4,15 @@ function Nav() {
   return (
     <div className="top-0 flex max-[1200px]:h-[72px] h-[88px] w-full  items-center justify-between bg-white px-[120px] max-[1200px]:px-[29px]">
       <svg
+        onClick={() => {
+          location.href = "/";
+        }}
         xmlns="http://www.w3.org/2000/svg"
         width="172"
         height="46"
         fill="none"
         viewBox="0 0 172 46"
+        className="cursor-pointer"
       >
         <path
           fill="#000"
@@ -32,11 +36,26 @@ function Nav() {
       <ul className="flex gap-[40px] max-[1200px]:hidden">
         {["Explore Offerings", "How to Access", "Our Partners", "FAQs"].map(
           (ele) => {
-            return <li key={"nav" + ele}>{ele}</li>;
+            return (
+              <li
+                className="cursor-pointer"
+                onClick={() => {
+                  ele == "Explore Offerings" && (location.href = "/discover");
+                }}
+                key={"nav" + ele}
+              >
+                {ele}
+              </li>
+            );
           },
         )}
       </ul>
-      <button className="rounded-[8px] bg-black px-[24px] py-[10px] text-[18px] text-white max-[1200px]:hidden">
+      <button
+        onClick={() => {
+          location.href = "/add";
+        }}
+        className="rounded-[8px] bg-black px-[24px] py-[10px] text-[18px] text-white max-[1200px]:hidden"
+      >
         Get Listed
       </button>
     </div>

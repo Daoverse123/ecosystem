@@ -18,7 +18,7 @@ async function handleCredentialResponse(response: any) {
   body = {
     token: response.credential,
   };
-  let res = await axios.post(`${process.env.P_API}/login/google`, body);
+  let res = await axios.post(`${process.env.API}/login/google`, body);
   if (res.status == 200) {
     let jwt = res.data.data.token;
     localStorage.setItem("token", `Bearer ${jwt}`);
@@ -47,14 +47,14 @@ export default function Home() {
   const [walletTrigger, setwalletTrigger] = useState(0);
   const [selectedAuth, setselectedAuth] = useState<string>("Email");
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       signUpGoogle();
-  //     }, 0);
-  //   }, [selectedAuth]);
+  useEffect(() => {
+    setTimeout(() => {
+      signUpGoogle();
+    }, 0);
+  }, [selectedAuth]);
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen justify-center items-center bg-[#00000023] fixed z-10 ">
       {walletTrigger > 0 && (
         <WalletAuthTrigger
           key={walletTrigger + "trigger"}
@@ -62,63 +62,49 @@ export default function Home() {
           setwalletTrigger={setwalletTrigger}
         />
       )}
-      <div className="flex flex-col min-w-[643px] h-full justify-center items-center">
-        <span className="flex flex-col w-[378px] min-h-[242px]">
-          <h3 className="text-[20px] font-normal">Let’s start by</h3>
-          <h1 className="text-[24px] font-semibold">Login/Sign up</h1>
-          <p className="text-[14px] font-normal m-0 p-0 mt-[16px]">
-            Sign up/login through wallet or Google Account to start your web3
-            journey. Don’t worry, we don’t store any data !
-          </p>
 
-          <div className="flex w-full gap-6 mt-6 relative">
-            {["Email", "Wallet"].map((item, index) => {
-              return (
-                <p
-                  onClick={() => {
-                    setselectedAuth(item);
-                  }}
-                  className={`z-10 border-b-[2px] ${
-                    selectedAuth == item
-                      ? "border-[#000000]"
-                      : "border-[#CACDD5]"
-                  } text-[16px] font-semibold m-0 p-0  cursor-pointer pb-1`}
-                  key={"opt " + index}
-                >
-                  {item}
-                </p>
-              );
-            })}
-            {/* line */}
-            <div className="bg-[#CACDD5] h-[2px] w-full flex absolute bottom-0"></div>
-          </div>
-          {selectedAuth == "Email" && (
-            <span style={{ marginTop: "15px" }} id={"google-login"}></span>
-          )}
-          {/* <ConnectButton /> */}
-          {selectedAuth == "Wallet" && (
-            <button
-              className="bg-[#ffffff] text-[#000000] rounded-[8px] w-full h-[48px] mt-[16px] cursor-pointer"
-              onClick={async () => {
-                setwalletTrigger((st) => st + 1);
-              }}
-            >
-              Wallet Connect
-            </button>
-          )}
-        </span>
-      </div>
-      <picture className="relative flex w-full flex-grow">
-        <img className="w-full h-full object-cover" src="/auth_bg.png" alt="" />
-        <span className="absolute left-0 right-0 top-0 bottom-0 m-auto flex justify-center items-center flex-col">
-          <p className="font-medium text-[16px] gradtext">
-            Manage your community’s details and missions at Truts.
-          </p>
-          <h1 className="font-semibold text-5xl w-[450px] text-center mt-[24px]">
-            Reviews. Missions. One Platform
-          </h1>
-        </span>
-      </picture>
+      <span className="flex flex-col w-[378px] min-h-[242px] bg-white p-4 rounded-lg">
+        <h3 className="text-[20px] font-normal">Let’s start by</h3>
+        <h1 className="text-[24px] font-semibold">Login/Sign up</h1>
+        <p className="text-[14px] font-normal m-0 p-0 mt-[16px]">
+          Sign up/login through wallet or Google Account to start your web3
+          journey. Don’t worry, we don’t store any data !
+        </p>
+
+        <div className="flex w-full gap-6 mt-6 relative z-20">
+          {["Email", "Wallet"].map((item, index) => {
+            return (
+              <p
+                onClick={() => {
+                  setselectedAuth(item);
+                }}
+                className={`z-10 border-b-[2px] ${
+                  selectedAuth == item ? "border-[#000000]" : "border-[#CACDD5]"
+                } text-[16px] font-semibold m-0 p-0  cursor-pointer pb-1`}
+                key={"opt " + index}
+              >
+                {item}
+              </p>
+            );
+          })}
+          {/* line */}
+          <div className="bg-[#CACDD5] h-[2px] w-full flex absolute bottom-0"></div>
+        </div>
+        {selectedAuth == "Email" && (
+          <span style={{ marginTop: "15px" }} id={"google-login"}></span>
+        )}
+        {/* <ConnectButton /> */}
+        {selectedAuth == "Wallet" && (
+          <button
+            className="bg-[#ffffff] text-[#000000] rounded-[8px] w-full h-[48px] mt-[16px] cursor-pointer"
+            onClick={async () => {
+              setwalletTrigger((st) => st + 1);
+            }}
+          >
+            Wallet Connect
+          </button>
+        )}
+      </span>
     </div>
   );
 }
@@ -148,7 +134,7 @@ const WalletAuthTrigger = ({
   const walletAuthApi = async () => {
     setisLoading(true);
     let res_nonce = await axios.get(
-      `${process.env.P_API}/login/wallet?address=${address}&chain=${chain}`,
+      `${process.env.API}/login/wallet?address=${address}&chain=${chain}`,
     );
     if (res_nonce.status == 200) {
       // Solana Ethereum
@@ -160,7 +146,7 @@ const WalletAuthTrigger = ({
       signature = await signMessageAsync({ message });
 
       let auth_res = await axios.post(
-        `${process.env.P_API}/login/wallet/verify`,
+        `${process.env.API}/login/wallet/verify`,
         {
           public_key,
           signature,

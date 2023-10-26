@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { tagType } from "@/types";
 
 const Chip = ({ name, remove }: { name: string; remove: () => void }) => {
   return (
@@ -34,14 +37,39 @@ const Chip = ({ name, remove }: { name: string; remove: () => void }) => {
   );
 };
 
-let options = ["Truts", "Meta", "Google", "Facebook", "Amazon"];
-
-function Multiselect() {
+function Multiselect({ setTags }: { setTags: (s: string[]) => any }) {
   const [visible, setvisible] = useState(false);
   const [selected, setselected] = useState<string[]>([]);
   const [inputfield, setinputfield] = useState("");
+  const [inputHeight, setinputHeight] = useState<number | null | undefined>(
+    null,
+  );
+
+  useEffect(() => {
+    let ele = document.querySelector("#inputBox");
+    let height = ele?.getBoundingClientRect().height;
+    console.log(height);
+    setinputHeight(height);
+  }, [selected]);
+
+  //fetch tags
+  let tags = useQuery({
+    queryKey: ["tags"],
+    queryFn: async () => {
+      let res = await axios.get(`${process.env.API}/offering/tags`);
+      return res.data.data.result as tagType[];
+    },
+  });
+
+  useEffect(() => {
+    if (selected) {
+      setTags(selected);
+    }
+  }, [selected]);
+
   return (
     <div
+      id="inputBox"
       onMouseEnter={() => {
         setvisible(true);
       }}
@@ -77,8 +105,9 @@ function Multiselect() {
                     onKeyUp={(e) => {
                       if (e.key == "Enter") {
                         setselected((s) => {
-                          return [...s, inputfield];
+                          return Array.from(new Set([...s, inputfield]));
                         });
+                        setinputfield("");
                       }
                     }}
                     placeholder=""
@@ -87,7 +116,7 @@ function Multiselect() {
                 </div>
               </div>
               <div className="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 svelte-1l8159u">
-                <button className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+                <button className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none rotate-180">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="100%"
@@ -108,25 +137,26 @@ function Multiselect() {
           </div>
           {/* dropdown */}
           <div
+            style={{ top: `${inputHeight ? inputHeight + "px" : "56px"}` }}
             className={`top-14 ${
               visible ? "" : "hidden"
-            } absolute shadow bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj`}
+            } absolute shadow bg-white z-40 w-full left-0  rounded max-h-select overflow-y-auto svelte-5uyqqj`}
           >
             <div className="flex flex-col w-full">
-              {options.map((op, key) => {
+              {tags.data?.map((op, key) => {
                 return (
                   <div
                     onClick={() => {
                       setselected((s) => {
-                        return [...s, op];
+                        return Array.from(new Set([...s, op.tag]));
                       });
                     }}
-                    key={op + "op"}
+                    key={key + "op"}
                     className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
                   >
                     <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-teal-100">
                       <div className="w-full items-center flex">
-                        <div className="mx-2 leading-6  ">{op}</div>
+                        <div className="mx-2 leading-6  ">{op.tag}</div>
                       </div>
                     </div>
                   </div>
