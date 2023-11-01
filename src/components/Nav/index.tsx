@@ -52,7 +52,7 @@ function Nav() {
       </ul>
       <button
         onClick={() => {
-          location.href = "/add";
+          location.href = "/add-offering";
         }}
         className="rounded-[8px] bg-black px-[24px] py-[10px] text-[18px] text-white max-[1200px]:hidden"
       >

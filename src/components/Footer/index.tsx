@@ -34,7 +34,13 @@ function Footer() {
         {["Get Listed", "Explore Offerings", "FAQs", "Visit Truts"].map(
           (ele) => {
             return (
-              <li className="max-[1200px]:text-[10px]" key={"nav" + ele}>
+              <li
+                onClick={() => {
+                  ele == "Get Listed" && (location.href = "/add-offering");
+                }}
+                className="max-[1200px]:text-[10px] cursor-pointer"
+                key={"nav" + ele}
+              >
                 {ele}
               </li>
             );

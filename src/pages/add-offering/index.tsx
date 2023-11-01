@@ -17,6 +17,15 @@ images
 socials 
 */
 
+enum Social {
+  DISCORD = "DISCORD",
+  TWITTER = "TWITTER",
+  WEBSITE = "WEBSITE",
+  TELEGRAM = "TELEGRAM",
+  EMAIL = "EMAIL",
+  MEDIUM = "MEDIUM",
+}
+
 interface Form {
   name: string;
   description: string;
@@ -25,6 +34,11 @@ interface Form {
   tags: string[];
   setForm: (key: string, value: string) => any;
   setTags: (t: string[]) => any;
+  setImages: (t: any) => any;
+  setSocial: (key: Social, value: string) => any;
+  logo: any;
+  images: [any] | null;
+  socials: { [key in Social]: string } | {};
 }
 
 const useStore = create<Form>((set) => ({
@@ -39,11 +53,60 @@ const useStore = create<Form>((set) => ({
   setTags: (t: string[]) => {
     return set((state) => ({ ...state, tags: t }));
   },
+  setSocial: (key: Social, value: string) => {
+    return set((state) => ({
+      ...state,
+      socials: { ...state.socials, [key]: value },
+    }));
+  },
+  setImages: (t: any) => {
+    return set((state) => ({
+      ...state,
+      images: [t],
+    }));
+  },
+  logo: null,
+  images: null,
+  socials: {},
 }));
 
 function Add() {
   let formState = useStore();
-  console.log(formState);
+
+  const uploadData = () => {
+    const formData = new FormData();
+
+    ["name", "description", "credits", "organization", "logo"].forEach(
+      (ele: any) => {
+        formState[ele as keyof Form] &&
+          formData.append(`${ele}`, formState[ele as keyof Form]);
+      },
+    );
+
+    formState.images &&
+      formState.images.forEach((f) => {
+        formData.append("images", f);
+      });
+
+    formState.socials &&
+      formData.append("socials", JSON.stringify(formState.socials));
+
+    formState.tags && formData.append("tags", JSON.stringify(formState.tags));
+
+    return axios
+      .post(`${process.env.API}/offering`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Important: Set the content type to multipart/form-data
+        },
+      })
+      .then((response) => {
+        console.log("Response from server:", response.data);
+        // Handle the response from the server as needed
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -121,17 +184,24 @@ function Add() {
             onChange={(event: any) => {
               const file = event?.target?.files[0];
               if (file) {
+                formState.setForm("logo", file);
                 const imageURL = URL.createObjectURL(file);
                 let doc = document as any;
+                // doc.getElementById("logo").style.display = "block";
                 doc.getElementById("logo").src = imageURL;
               }
             }}
           />
           <picture>
-            <img className="object-contain h-80" id="logo" src="" alt="" />
+            <img
+              className="object-contain h-80"
+              id="logo"
+              src="/upload.png"
+              alt=""
+            />
           </picture>
         </span>
-        {/* <span className="mt-[40px]">
+        <span className="mt-[40px]">
           <h2 className="text-[16px]">Images</h2>
           <input
             className="h-[56px] w-full max-w-[700px] mt-[16px] "
@@ -139,6 +209,7 @@ function Add() {
             onChange={(event: any) => {
               const file = event?.target?.files[0];
               if (file) {
+                formState.setImages(file);
                 const imageURL = URL.createObjectURL(file);
                 let doc = document as any;
                 doc.getElementById("image").src = imageURL;
@@ -146,16 +217,82 @@ function Add() {
             }}
           />
           <picture>
-            <img id="image" src="" alt="" className="object-contain h-80" />
+            <img
+              id="image"
+              src="/upload.png"
+              alt=""
+              className="object-contain h-80"
+            />
           </picture>
-        </span> */}
+        </span>
         <span className="mt-[40px]">
-          <h2 className="text-[16px]">Socials</h2>
+          <h2 className="text-[16px]">Twitter Link</h2>
           <input
             className="bg-white rounded-[16px] h-[56px] w-full max-w-[700px] mt-[16px] px-4"
             type="text"
+            value={
+              Social.TWITTER in formState.socials
+                ? formState.socials[Social.TWITTER]
+                : ""
+            }
+            onChange={(e) => {
+              formState.setSocial(Social.TWITTER, e.target.value);
+            }}
           />
         </span>
+        <span className="mt-[40px]">
+          <h2 className="text-[16px]">Discord Link</h2>
+          <input
+            className="bg-white rounded-[16px] h-[56px] w-full max-w-[700px] mt-[16px] px-4"
+            type="text"
+            value={
+              Social.DISCORD in formState.socials
+                ? formState.socials[Social.DISCORD]
+                : ""
+            }
+            onChange={(e) => {
+              formState.setSocial(Social.DISCORD, e.target.value);
+            }}
+          />
+        </span>
+        <span className="mt-[40px]">
+          <h2 className="text-[16px]">Website Link</h2>
+          <input
+            className="bg-white rounded-[16px] h-[56px] w-full max-w-[700px] mt-[16px] px-4"
+            type="text"
+            value={
+              Social.WEBSITE in formState.socials
+                ? formState.socials[Social.WEBSITE]
+                : ""
+            }
+            onChange={(e) => {
+              formState.setSocial(Social.WEBSITE, e.target.value);
+            }}
+          />
+        </span>
+        {/* <span className="mt-[40px]">
+          <h2 className="text-[16px]">Truts Link</h2>
+          <input
+            className="bg-white rounded-[16px] h-[56px] w-full max-w-[700px] mt-[16px] px-4"
+            type="text"
+            value={
+              Social.DISCORD in formState.socials
+                ? formState.socials[Social.DISCORD]
+                : ""
+            }
+            onChange={(e) => {
+              formState.setSocial(Social.DISCORD, e.target.value);
+            }}
+          />
+        </span> */}
+        <button
+          className="rounded-[8px] bg-black px-[24px] py-[10px] text-[18px] text-white w-full max-w-[700px] mt-14"
+          onClick={() => {
+            uploadData();
+          }}
+        >
+          Submit Offering
+        </button>
       </section>
       <Footer />
     </div>
