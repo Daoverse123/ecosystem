@@ -102,9 +102,14 @@ function Add() {
       .then((response) => {
         console.log("Response from server:", response.data);
         // Handle the response from the server as needed
+        if (response.status == 200) {
+          alert("Listing Success");
+          location.reload();
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("Listing Error");
       });
   };
 
