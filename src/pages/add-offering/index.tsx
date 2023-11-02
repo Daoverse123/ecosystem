@@ -102,7 +102,7 @@ function Add() {
       .then((response) => {
         console.log("Response from server:", response.data);
         // Handle the response from the server as needed
-        if (response.status == 200) {
+        if (response.status == 201) {
           alert("Listing Success");
           location.reload();
         }
