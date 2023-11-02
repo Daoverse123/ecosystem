@@ -26,7 +26,7 @@ function Claim() {
 
           <span className="mt-[40px] flex flex-col">
             <h2 className="text-[16px]">Select Offerings (max 3)</h2>
-            <Multiselect />
+            <Multiselect setTags={() => {}} />
           </span>
         </section>
         <Footer />
